@@ -1,0 +1,27 @@
+Table;Attribute;Data type;size
+;;;
+Customer:;CUS_CODE;int;default
+;CUS_LNAME;varchar;30
+;CUS_FNAME;varchar;30
+;CUS_INITIAL;varchar;10
+;CUS_AREACODE;char;3
+;CUS__PHONE;char;7
+;CUS_BALANCE;int;default
+;;;
+Invoice:;INV_NUMBER;int;default
+;CUS_CODE;int;default
+;INV_DATE;datetime;default
+;;;
+Line:;LIN_NUMBER;int;default
+;LINE_UNITS;smallint;default
+;LINE_PRCE;mediumint;default
+;;;
+Product:;PROD_CODE;int;default
+;PROD_DESCRIPTION;varchar;255
+;PROD_PRICE;mediumint;default
+;PROD_ON_HAND;smallint;default
+;;;
+Vendor:;VEND_CODE;int;default
+;VEND_CONTACT;varchar;100
+;VEND_AREACODE;char;3
+;VEND_PHONE;char;7

@@ -1,13 +1,3 @@
-drop __ if exists __;
-
-create __ __;
-use __;
-
-the cat food problem
-
------------
-ex:
-
 drop database if exists SaleCo;
 
 create database SaleCo;
@@ -16,9 +6,9 @@ use SaleCo;
 create table Customer
 (
 	CUS_CODE int auto_increment,
-	CUS_LNAME varchar(75),
-	CUS_FNAME varchar(75),
-	CUS_INITIAL varchar(15),
+	CUS_LNAME varchar(30),
+	CUS_FNAME varchar(30),
+	CUS_INITIAL varchar(10),
 	CUS_AREACODE char(3),
 	CUS_PHONE char(7),
 	CUS_BALANCE int,
@@ -31,7 +21,7 @@ create table Invoice
 	CUS_CODE int,
 	INV_DATE datetime,
 	constraint invoice_PK primary key(INV_NUMBER),
-	constraint invoice_customer_FK foreign key (CUS_CODE) references Customer(customer_PK)
+	constraint invoice_customer_FK foreign key (CUS_CODE) references Customer(CUS_CODE)
 );
 
 create table Line
@@ -55,7 +45,7 @@ create table Product
 create table Vendor
 (
 	VEND_CODE int auto_increment,
-	VEND_CONTACT varchar(150),
+	VEND_CONTACT varchar(100),
 	VEND_AREACODE char(3),
 	VEND_PHONE char(7),
 	constraint vendor_PK primary key(VEND_CODE)
