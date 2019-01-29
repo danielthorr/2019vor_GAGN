@@ -19,18 +19,21 @@ create table Invoice
 (
 	INV_NUMBER int auto_increment,
 	CUS_CODE int,
+	LINE_CODE int,
 	INV_DATE datetime,
 	constraint invoice_PK primary key(INV_NUMBER),
-	constraint invoice_customer_FK foreign key (CUS_CODE) references Customer(CUS_CODE)
+	constraint invoice_customer_FK foreign key (CUS_CODE) references Customer(CUS_CODE),
+	constraint invoice_line_FK foreign key (LINE_CODE) references Line(LINE_NUMBER)
 );
 
 create table Line
 (
 	LIN_NUMBER int auto_increment,
+	PROD_CODE int,
 	LINE_UNITS smallint,
 	LINE_PRICE mediumint,
-	constraint line_PK primary key (LIN_NUMBER)
-	
+	constraint line_PK primary key (LIN_NUMBER),
+	constraint line_prod_FK foreign key (PROD_CODE) references Product(PROD_CODE)
 );
 
 create table Product
