@@ -55,3 +55,4 @@ insert into nemendur(fornafn,eftirnafn,faedingardagur)values('María','Grétarsd
         Setjið prófunargögn í "uppfærða grunninn", td. eitt fyrirtæki með tvær deildir og fimm starfsmenn sem framleiðir 3 vörur.
 */
 
+Sjá Firm_Database-normalized.sql og firm_inserts.sql
