@@ -1,9 +1,9 @@
 -- -----------------------------------------------------
--- 					  Námsgögn
+-- 					  Namsferill
 -- -----------------------------------------------------
-drop database if exists Namsgogn;
-create database Namsgogn default character set utf8;
-use Namsgogn ;
+drop database if exists Namsferill;
+create database Namsferill default character set utf8;
+use Namsferill ;
 
 
 -- -----------------------------------------------------
@@ -24,9 +24,9 @@ create table Afangar
 -- -----------------------------------------------------
 create table Skolar 
 (
-  ID int(11) not null auto_increment,
+  skolaNumer int(11) not null auto_increment,
   skolaheiti varchar(75) null default null,
-  constraint skoli_PK primary key(ID)
+  constraint skoli_PK primary key(skolaNumer)
 );
 
 
@@ -35,11 +35,11 @@ create table Skolar
 -- -----------------------------------------------------
 create table Undirskolar
 (
-  ID int(11) not null auto_increment,
+  undirskolaNumer int(11) not null auto_increment,
   heiti varchar(75) not null,
-  skolaID int(11) not null,
-  constraint deild_PK primary key(ID),
-  constraint deild_skoli_FK foreign key(skolaID) references Skolar(ID)
+  skolaNumer int(11) not null,
+  constraint deild_PK primary key(undirskolaNumer),
+  constraint deild_skoli_FK foreign key(skolaNumer) references Skolar(skolaNumer)
 );
 
 
@@ -48,11 +48,11 @@ create table Undirskolar
 -- -----------------------------------------------------
 create table Brautir 
 (
-  ID int(11) not null auto_increment,
+  brautarNumer int(11) not null auto_increment,
   heitiBrautar varchar(75) null default null,
   tilheyrir int(11) not null,
-  constraint braut_PK primary key(ID),
-  constraint braut_undirskoli_FK foreign key(tilheyrir) references Undirskolar(ID)
+  constraint braut_PK primary key(brautarNumer),
+  constraint braut_undirskoli_FK foreign key(tilheyrir) references Undirskolar(undirskolaNumer)
 );
 
 
@@ -61,13 +61,13 @@ create table Brautir
 -- -----------------------------------------------------
 create table AfangaFrambod
 (
-  ID int(11) not null,
+  brautarNumer int(11) not null,
   afangaNumer char(15) not null,
   onnAfanga tinyint null default null,
   skylda boolean default True,
-  constraint afangar_brauta_PK primary key(ID, afangaNumer),
+  constraint afangar_brauta_PK primary key(brautarNumer, afangaNumer),
   constraint frambod_afangi_FK foreign key (afangaNumer) references Afangar (afangaNumer),
-  constraint frambod_namsleid_FK foreign key (ID) references Brautir(ID)
+  constraint frambod_namsleid_FK foreign key (brautarNumer) references Brautir(brautarNumer)
 );
 
 
@@ -82,31 +82,4 @@ create table Undanfarar
   primary key (afangaNumer, undanfaraNumer),
   constraint afangi_afangi_FK foreign key (afangaNumer) references Afangar(afangaNumer),
   constraint undanfari_afangi_FK foreign key (undanfaraNumer) references Afangar(afangaNumer)
-);
-
--- -----------------------------------------------------
--- 						Nemendur
--- -----------------------------------------------------
-create table Nemendur
-(
-	ID int not null auto_increment,
-	fornafn varchar(55) not null,
-	eftirnafn varchar(55) not null,
-	faedingarDagur date not null,
-	constraint nemandi_PK primary key(ID)
-);
-
--- -----------------------------------------------------
--- 						Námsferill
--- -----------------------------------------------------
-create table Namsferill
-(
-	ID int not null auto_increment,
-	dagsetning datetime,
-	einkunn tinyint,
-	nemandiID int not null,
-	afangaID char(15) not null,
-	constraint namsferill_PK primary key(ID),
-	constraint skraning_nemandi_FK foreign key(nemandiID) references Nemendur(ID),
-	constraint skraning_afangi_FK foreign key(afangaID) references AfangaFrambod(ID)
 );
