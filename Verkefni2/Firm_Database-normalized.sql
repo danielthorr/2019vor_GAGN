@@ -3,19 +3,19 @@ create database TheFirm;
 use TheFirm;
 
 
-create table ZipCode
+create table ZipCodes
 (
     zipID int primary key auto_increment,
     zipCode int
 );
 
-create table City
+create table Cities
 (
     cityID int primary key auto_increment,
     city varchar(55)
 );
 
-create table FirmInfo
+create table Firms
 (
 	firmID int primary key auto_increment,
     companyName char(75),
@@ -26,8 +26,16 @@ create table FirmInfo
     email varchar(125),
     ceo varchar(55),
     companySlogan char(25),
-    constraint zipCodeFK foreign key(zipCode) references ZipCode(zipID),
-    constraint cityFK foreign key(city) references City(cityID)
+    constraint zipCodeFK foreign key(zipCode) references ZipCodes(zipID),
+    constraint cityFK foreign key(city) references Cities(cityID)
+);
+
+create table Divisions
+(
+	divisionID int primary key auto_increment,
+    divisionName varchar(75),
+    firm int,
+    constraint firmFK foreign key(firm) references Firms(firmID)
 );
 
 create table Products
@@ -35,7 +43,9 @@ create table Products
 	productID int primary key auto_increment,
     productName varchar(55),
     timeOfProduction date,
-    recommendedSalesPrice int
+    recommendedSalesPrice int,
+    division int,
+    constraint productAtDivisionFK foreign key(division) references Divisions(divisionID)
 );
 
 create table Jobs
@@ -43,6 +53,7 @@ create table Jobs
     jobID int primary key auto_increment,
     jobTitle varchar(55)
 );
+
 
 create table Staff
 (
@@ -60,18 +71,8 @@ create table Staff
 create table DivisionManagers
 (
     managerID int primary key auto_increment,
-    staff int
-    constraint staffFK foreign key(staff) references Staff(staffID)
-);
-
-create table Divisions
-(
-	divisionID int primary key auto_increment,
-    divisionName varchar(75),
-    productNumber int,
-    divisionManager int,
-    firm int,
-    constraint productNumberFK foreign key(productNumber) references Products(productID),
-    constraint divisionManagerFK foreign key(divisionManager) references Staff(staffID),
-    constraint firmFK foreign key(firm) references FirmInfo(firmID)
+    staff int,
+    division int,
+    constraint managerStaffFK foreign key(staff) references Staff(staffID),
+    constraint managerDivisionFK foreign key(division) references Divisions(divisionID)
 );
