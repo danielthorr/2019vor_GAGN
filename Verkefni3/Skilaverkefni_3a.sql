@@ -84,25 +84,27 @@ where afangaNumer not in ("DANS2BM05AT", "ÍÞRÓ1GH02AT", "MENL1AL05AT", "STÆR
 -- 8:
 -- veljið meðaleinkunn á hvern áfanga. Birtið áfanganúmerið ásamt meðaleinkunn:
 
-select afangar.afangaNumer as "Númer áfanga", afangaHeiti as "Áfangaheiti", 
-(
-    select avg(einkunn) from nemendaskraning 
-    where nemendaskraning.afangaNumer = afangar.afangaNumer
-) as "Meðaleinkunn"
-from afangar;
+select a.afangaNumer, afangaHeiti, avg(einkunn) from afangar a, nemendaskraning n
+where a.afangaNumer = n.afangaNumer and einkunn is not null
+group by a.afangaNumer
 
 -- 9:
 -- Veljð nú meðaleinkunn hvers nemanda(nemandiID) og rúnnið einkunnina af uppá einn aukastaf( td: 8.5000 verður 9.0 en 8.4000 verður 8.0)
 -- Takið aðeins einkunnir +afanga sem er lokið(ekki null)
 -- https://www.w3schools.com/sql/func_mysql_round.asp
 
-select distinct 
-nemandi, fornafn, round(avg(einkunn))
-    from nemendur n1
-inner join nemendaskraning n2 
-    on n1.nemandi = n2.nemandiID
-        where n2.einkunn is null;
+select nemandi, fornafn, avg(einkunn) from nemendur, nemendaskraning
+where nemandi = nemandiID and einkunn is not null
+group by nemandi
 
 -- 10:
 -- Hvað eru margir skylduáfangar áætlaðir á hverja önn á tölvubraut(brautarnúmer 7). 
 -- Birtið bæði númer viðkomandi annar og fjölda skylduáfanga:
+
+select 
+    onnAfanga as "Önn áfanganna", 
+    count(afangaNumer) as "Fjöldi skylduáfanga" 
+    from afangaframbod
+    
+where brautarNumer = 7 and skylda
+group by onnAfanga;

@@ -3,12 +3,24 @@
 -- Birtið áfanganúmer, áfangaheiti, einingafjölda, önn áfangans og hvort áfanginn er skylda eða ekki.
 -- AHT: Hér þarf að nota inner join
 
+select 
+    a1.afangaNumer, a1.afangaHeiti, a1.einingar, 
+    a2.onnAfanga, a2.skylda
+from afangar a1
+inner join afangaframbod a2 
+on a1.afangaNumer = a2.afangaNumer
 
 
 -- 2:
 -- Sækið upplýsingar um alla skylduáfanga sem skráðir eru í grunninn.
 -- Birtið áfanganúmer, áfangaheiti og önn áfangans. Raðið eftir önn áfangans 
 
+select afangar.afangaNumer, afangar.afangaHeiti, afangaframbod.onnAfanga
+from afangar
+inner join afangaframbod 
+on afangar.afangaNumer = afangaframbod.afangaNumer
+where skylda
+order by onnAfanga;
 
 
 -- 3:
