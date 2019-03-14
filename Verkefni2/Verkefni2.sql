@@ -11,10 +11,6 @@ create table nemendur
     constraint nemandi_PK primary key(nemandi)
 );
 
-alter table afangaframbod
-    add nemandi int(11) null,
-    add constraint nemandi_FK foreign key(nemandi) references nemendur(nemandi);
-
 -- -----------------------------------------------------
 -- 					  Liður 2
 -- -----------------------------------------------------
