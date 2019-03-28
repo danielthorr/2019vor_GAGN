@@ -53,7 +53,7 @@ and  einkunn < ( select avg(einkunn) from nemendaskraning
 -- Gæti verið kúl að raða eftir undirskólum og svo á hvaða önn áfangarnir eru!
 -- ATH: Töflur sem þarf að nota eru: Undirskolar, Brautir, Afangaframboð.
 
-    -- WIP - ekki búið að klára
-select afangaNumer, onnAfanga, heitiBrautar, heiti from afangaframbod
-inner join brautir using(brautarNumer)
-inner join undirskolar on undirskolar.undirskolaNumer = brautir.tilheyrir;
+select u.heiti, b.heitiBrautar, a.afangaNumer, a.onnAfanga from afangaframbod a
+inner join brautir b using(brautarNumer)
+inner join undirskolar u on u.undirskolaNumer = b.tilheyrir
+order by u.heiti, a.onnAfanga;
